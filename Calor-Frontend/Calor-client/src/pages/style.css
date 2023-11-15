@@ -1,0 +1,444 @@
+@import url('https://fonts.googleapis.com/css2?family=ADLaM+Display&family=Fira+Sans&family=Poppins:wght@400;600&family=Source+Code+Pro:wght@300&display=swap');
+
+body {
+  font-family: "Poppins";
+  margin: 0;
+  /* Remove default body margin */
+}
+
+h1 {
+  text-align: center;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
+    /* font-size: larger */
+    /* font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; */
+}
+
+.image-switcher-container {
+  position: relative;
+  height: 100vh;
+  display: inline-block;
+}
+
+.image-switcher-container h1 {
+  position: absolute;
+  top: 20px;
+  /* Adjust this value to position vertically */
+  left: 20px;
+  /* Adjust this value to position horizontally */
+  margin: 0;
+  padding: 5px;
+  color: white;
+}
+
+.home-main {
+  display: flex;
+  /* flex-direction: row; */
+  float: right;
+  width: 100%;
+  height: max-content;
+  align-items: center;
+  background: linear-gradient(-45deg, #ffffff, #514c4c88);
+
+}
+
+.TypeWriter {
+  margin: 10rem;
+  /* width: 6rem;
+  height: 3rem; */
+  /* position: absolute; */
+}
+
+.get-started {
+  cursor: pointer;
+  width: 10rem;
+  height: 4rem;
+  position: fixed;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  bottom: 20px;
+  /* Adjust the distance from the bottom as needed */
+  right: 20px;
+  background-color: black;
+  /* Set button background color to black */
+  color: #e1e0e0;
+  border-radius: 30px;
+}
+
+.home-main-content {
+  align-items: flex-start;
+  background: transparent;
+}
+
+.image-switcher-container {
+  /* margin: 10%; */
+  height: 100%;
+  /* Take up full height */
+  /* overflow: hidden; */
+  /* Hide any overflow content */
+}
+
+.content {
+  flex: 1;
+  /* Take up remaining width */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  /* Add padding to center content */
+  /* overflow: auto; */
+  position: relative;
+  /* Add scrollable content if needed */
+}
+
+.header {
+  margin-bottom: 20px;
+}
+
+.input-section {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.youtube-input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-right: 10px;
+  width: 300px;
+}
+
+.submit-button {
+  padding: 10px 20px;
+  background-color: #0968cd;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.result-section {
+  margin-top: 20px;
+}
+
+.table {
+  margin-left: 10vh;
+  width: 50rem;
+  height: fit-content;
+}
+
+
+.analysis-mainContainer {
+  width: 100%;
+  height: 100%;
+  background-color: #cfcece;
+  display: flex;
+  flex-direction: row;
+  overflow: auto;
+}
+
+h3 {
+  color: fffdfd;
+}
+
+.analysis-content {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 95vw;
+  /* height: 100vh; */
+}
+
+.chatMain-container {
+  display: flex;
+  flex-direction: row;
+  width: 100vw;
+  height: 100vh;
+  background-color: #f9f8fd;
+}
+
+.chatSideBar-container {
+  display: flex;
+  flex-direction: row;
+  width: 27vw;
+  background-color: #0968cd;
+}
+
+.chatSideBar-mainLeft {
+  display: flex;
+  width: 3vw;
+  background-color: #b8b4b4;
+}
+
+.chatSideBar-mainRight {
+  display: flex;
+  flex-direction: column;
+  width: 24vw;
+  background-color: #515151;
+}
+
+.chatSideBar-mainRightHeaderContainer {
+  width: 100%;
+  background-color: white;
+  height: 8vh;
+  display: flex;
+  flex-direction: row;
+}
+
+.chatSideBar-mainRightHeader {
+  margin-top: 4px;
+  width: 100%;
+  height: 100%;
+  justify-content: space-between;
+  display: flex;
+  flex-direction: row;
+}
+
+/* Style the heading within the header */
+.chatSideBar-mainRightHeaderHeading h1 {
+  /* margin: 0; */
+  margin-left: 10px;
+  font-size: 1.5em;
+  /* Adjust font size as needed */
+  color: #333;
+  /* Set text color as needed */
+  font-family: "Poppins";
+}
+
+/* Style the icons container */
+.chatHeaderIcons {
+  display: flex;
+  align-items: center;
+  margin-right: 10px;
+}
+
+/* Style the plus image */
+.plusImage {
+  width: 24px;
+  /* Set width as needed */
+  height: 24px;
+  /* Set height as needed */
+  margin-right: 10px;
+  /* Adjust margin as needed */
+}
+
+
+/* Apply styles to the chat container */
+.chatSideBar-mainRightHeaderContainer2 {
+  /* Add any additional styles you need */
+  overflow-y: auto;
+  /* Enable vertical scrollbar when content exceeds container height */
+  max-height: 100%;
+  /* Set maximum height for the chat container */
+  scrollbar-width: thin;
+  /* Set the width of the scrollbar for Firefox */
+
+  /* Hide the scrollbar by default */
+  scrollbar-color: transparent transparent;
+}
+
+/* Apply styles to individual chat items */
+.chatsContainer .chatItem {
+  /* Add any additional styles for each chat item */
+  padding: 15px;
+  border-bottom: 1px solid #ddd;
+  display: flex;
+  flex-direction: row;
+  font-family: "Poppins";
+  font-size: 1rem;
+
+
+}
+
+.chatsContainer .chatItem:hover {
+  color: #000000;
+  background-color: #e7e7e7;
+  padding: 15px;
+  border-bottom: 1px solid #ddd;
+  cursor: pointer;
+}
+
+.chatsContainer .chatItem:hover  p{
+  color: #000000;
+  font-family: "Poppins";
+}
+
+.chatsContainer .chatItem.active {
+  background-color: #e7e7e7;
+  padding: 15px;
+  border-bottom: 1px solid #ddd;
+}
+
+.chatsContainer .chatItem.active svg {
+  stroke: black;
+}
+
+.chatsContainer .chatItem:hover svg {
+  stroke: black;
+}
+
+.chatItem .chatEditElements {
+  display: none;
+}
+
+.chatItemElements {
+  display: flex;
+  flex-direction: row;
+  width: 70%;
+}
+
+.chatItem.active .chatEditElements {
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+  margin-left: 11rem;
+  /* width: 100%; */
+}
+
+.icon-sm {
+  color: white;
+  margin-right: 10px;
+  height: 1.2em;
+  /* Adjust the height as needed */
+  width: 2em;
+}
+
+/* Apply styles to the paragraph within the chatItemElements */
+.chatItemElements p {
+  font-family: "Poppins";
+  color: #ffffff;
+  margin: 0;
+  /* Remove default margin to ensure tight spacing */
+  white-space: nowrap;
+  /* Prevent line breaks */
+  overflow: hidden;
+  /* Hide overflow content */
+  text-overflow: ellipsis;
+  /* Add ellipsis (...) for overflow text */
+}
+
+
+.chatItemElements:hover p{
+  font-family: "Poppins";
+  color: #000000;
+  margin: 0;
+  /* Remove default margin to ensure tight spacing */
+  white-space: nowrap;
+  /* Prevent line breaks */
+  overflow: hidden;
+  /* Hide overflow content */
+  text-overflow: ellipsis;
+  /* Add ellipsis (...) for overflow text */
+}
+
+/* Add styles to handle overflow content within the chatItemElements */
+.chatItemElements {
+  display: flex;
+  align-items: center;
+  /* Add any additional styles you need */
+}
+
+.chatItem.active .chatItemElements p{
+  color: #000000;
+  margin: 0;
+  /* Remove default margin to ensure tight spacing */
+  white-space: nowrap;
+  /* Prevent line breaks */
+  overflow: hidden;
+  /* Hide overflow content */
+  text-overflow: ellipsis;
+  /* Add ellipsis (...) for overflow text */
+}
+
+
+
+.chatItemElements {
+  max-width: 200px;
+}
+
+.icon-sm:hover {
+  color: black;
+}
+
+/* Show the scrollbar when hovering over the chat container */
+.chatSideBar-mainRightHeaderContainer2:hover {
+  scrollbar-color: #aaa #eee;
+}
+
+/* Style the scrollbar in the chat container */
+.chatsContainer {
+  scrollbar-width: thin;
+  scrollbar-color: #686464 #eee;
+}
+
+.chatsContainer::-webkit-scrollbar {
+  width: 8px;
+}
+
+.chatsContainer::-webkit-scrollbar-thumb {
+  background-color: #696565;
+}
+
+.chatsContainer::-webkit-scrollbar-track {
+  background-color: #7d2c2c;
+}
+
+.chatWindow-container{
+  width: 73vw;
+  background-color: #582121;
+}
+
+.chatWindowMainContainer{
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100%;
+}
+
+.chatWindowMainHeaderBar{
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 8vh;
+  background-color: #0968cd;
+}
+
+.chatWindowMainElements{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height:84vh ;
+  background-color: #515151;
+  overflow-y: auto; /* Enable vertical scrollbar when content exceeds container height */
+  scrollbar-width: thin; /* Firefox */
+  scrollbar-color: transparent transparent; /* Firefox */
+}
+
+.chatWindowMainChatElements{
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 8vh;
+  background-color: yellow;
+}
+
+
+/* WebKit (Chrome, Safari) */
+.chatWindowMainElements::-webkit-scrollbar {
+  width: 2px;
+  height: 5px;
+}
+
+.chatWindowMainElements::-webkit-scrollbar-thumb {
+  background-color: transparent;
+}
+
+.chatWindowMainElements::-webkit-scrollbar-thumb:hover {
+  background-color: #aaa; /* Change color on hover */
+}
+
+.chatWindowMainElements::-webkit-scrollbar-track {
+  background-color: transparent;
+}
