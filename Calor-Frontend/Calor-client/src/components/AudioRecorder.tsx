@@ -1,4 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
+import axios from "axios";
+
 
 const AudioRecorder = () => {
   const [recordingStatus, setRecordingStatus] = useState("inactive");
@@ -34,18 +36,48 @@ const AudioRecorder = () => {
     }
   };
 
-  const stopRecording = () => {
+  // const saveAudioLocally = (audioUrl : any) => {
+  //   // Implement your logic to save the audio locally using the audioUrl
+  //   // For example, you can create an anchor element and trigger a download
+  //   const a = document.createElement('a');
+  //   a.href = audioUrl;
+  //   a.download = 'recorded_audio.mp3'; // Specify the desired file name
+  //   a.click();
+  // };
+
+  const stopRecording = async () => {
     setRecordingStatus("inactive");
     mediaRecorder.current.stop();
 
     mediaRecorder.current.onstop = () => {
       const audioBlob = new Blob(audioChunks, { type: mimeType });
-      const audioUrl = URL.createObjectURL(audioBlob);
-      setAudio(audioUrl);
+      const audioFormData = new FormData();
+      audioFormData.append("audio_file", audioBlob, "recorded_audio.webm");
+
+      // Send the audioFormData using axios 
+      axios.post("http://localhost:8000/asr", audioFormData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          "accept": "application/json",
+        },
+      })
+        .then(response => {
+          console.log("Received response:", response);
+        })
+        .catch(error => {
+          console.error("Error uploading audio:", error);
+        });
+
+      setAudio(URL.createObjectURL(audioBlob));
       setAudioChunks([]);
       setShowBar(true);
+      console.log("The audioFormData, final : ", audioFormData)
     };
   };
+
+
+
+
 
   const handleRecordedAudio = (audio: string | null, mimeType: string) => {
     if (!audio || !showBar) {
@@ -64,7 +96,7 @@ const AudioRecorder = () => {
   };
 
   useEffect(() => {
-  }, [audio, showBar, key]); 
+  }, [audio, showBar, key]);
 
   return (
     <div>
@@ -80,4 +112,3 @@ const AudioRecorder = () => {
 };
 
 export default AudioRecorder;
-  

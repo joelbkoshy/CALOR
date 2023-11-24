@@ -6,6 +6,7 @@ import ChatWindow from '../components/ChatWindow';
 
 
 
+
 const ChatMain = () => {
 
     const [activeChatIndex, setActiveChatIndex] = useState(null);
@@ -137,7 +138,8 @@ const ChatMain = () => {
             </div>
             <div className='chatWindow-container'>
                 {
-                    activeChatIndex !== null ? <ChatWindow index={activeChatIndex} /> : <AudioRecorder/>
+                    activeChatIndex !== null ? <ChatWindow index={activeChatIndex} /> :< AudioRecorder/>
+                    
                 }
             </div>
         </div>
