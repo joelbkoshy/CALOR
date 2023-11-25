@@ -3,7 +3,7 @@ import './style.css'
 import AudioRecorder from '../components/AudioRecorder'
 import plusImage from '../assets/plus.png';
 import ChatWindow from '../components/ChatWindow';
-
+import chatIcon from '../assets/speech-bubble.png'
 
 
 
@@ -61,7 +61,7 @@ const ChatMain = () => {
         <div className='chatMain-container'>
             <div className='chatSideBar-container'>
                 <div className='chatSideBar-mainLeft'>
-                    <h1>hi</h1>
+                <img src={chatIcon} alt="" className='chatIcon' />
                 </div>
                 <div className='chatSideBar-mainRight'>
                     <div className="chatSideBar-mainRightHeaderContainer">
