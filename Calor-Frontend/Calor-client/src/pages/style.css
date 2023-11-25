@@ -1,11 +1,19 @@
 @import url('https://fonts.googleapis.com/css2?family=ADLaM+Display&family=Fira+Sans&family=Poppins:wght@400;600&family=Source+Code+Pro:wght@300&display=swap');
 
+
+
 body {
   font-family: "Poppins";
   margin: 0;
   /* Remove default body margin */
 }
+h2{
+  color: #f6f6f6;
+}
 
+.Calor-text{
+  color: #ffffff;
+}
 h1 {
   text-align: center;
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
@@ -191,10 +199,11 @@ h3 {
 
 .chatSideBar-mainRightHeaderContainer {
   width: 100%;
-  background-color: #949494;
+  background-color: #626060;
   height: 8vh;
   display: flex;
   flex-direction: row;
+  color: white;
 }
 
 .chatSideBar-mainRightHeader {
@@ -398,9 +407,27 @@ h3 {
 .chatWindow-container{
   width: 73vw;
   background-color: #272727;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.Calor-Logo{
+  width:90px;
+  height: 90px;
+}
+
+.chatWindow-container-centre{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.my-message {
+  /* background: $green; */
 }
 
 .message {     
+  margin-right: 10px;
   margin-top: 10px; 
   color: white;
   padding: 18px 20px;
@@ -408,8 +435,9 @@ h3 {
   font-size: 16px;
   border-radius: 7px;
   margin-bottom: 30px;
-  width: 90%;
+  width: 50%;
   position: relative;
+  float: right;
   
   &:after {
     bottom: 100%;

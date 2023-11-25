@@ -1,5 +1,6 @@
 import React , {useEffect,useRef}from 'react'
 import './style.css'
+import AudioRecorder from './AudioRecorder';
 
 
 const ChatWindow = ({ index }: any) => {
@@ -13,7 +14,7 @@ const chatWindowScrollRef = useRef<HTMLDivElement>(null);
     return (
         <div className='chatWindowMainContainer' >
             <div className="chatWindowMainHeaderBar">
-                <h1>chumma</h1>
+                <h1>Chat</h1>
             </div>
             <div className="chatWindowMainElements" ref={chatWindowScrollRef}>
             <div className="chat-history">
@@ -75,7 +76,7 @@ const chatWindowScrollRef = useRef<HTMLDivElement>(null);
       </div>
             </div>
             <div className="chatWindowMainChatElements">
-            <div className="chat-message clearfix">
+            {/* <div className="chat-message clearfix">
         <textarea name="message-to-send" id="message-to-send" placeholder ="Type your message" ></textarea>
                 
         <i className="fa fa-file-o"></i> &nbsp;&nbsp;&nbsp;
@@ -83,8 +84,9 @@ const chatWindowScrollRef = useRef<HTMLDivElement>(null);
         
         <button>Send</button>
 
-      </div>
-
+      </div> */}
+      {/* <input type="text" name="" id="" /> */}
+            <AudioRecorder />
             </div>
         </div>
     )
