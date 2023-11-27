@@ -74,7 +74,7 @@ const ChatMain = () => {
                             </div>
                         </div>
                     </div>
-                    <div className='chatSideBar-mainRightHeaderContainer2'>
+                    <div className='chatSideBar-mainRightHeaderContainer2' id="style-3">
                         <div className="chatsContainer">
                             {chats?.map((chat, index) => (
                                 <div key={index} className={`chatItem ${activeChatIndex === index ? 'active' : ''}`} onClick={() => handleChatItemClick(index)}>
