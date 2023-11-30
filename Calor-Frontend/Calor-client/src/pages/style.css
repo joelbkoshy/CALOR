@@ -6,13 +6,15 @@ body {
   font-family: "Poppins";
   margin: 0;
 }
-h2{
+
+h2 {
   color: #f6f6f6;
 }
 
-.Calor-text{
+.Calor-text {
   color: #ffffff;
 }
+
 h1 {
   text-align: center;
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
@@ -176,26 +178,23 @@ h3 {
   background-color: #202020;
 }
 
-#style-3::-webkit-scrollbar-track
-{
-	-webkit-box-shadow: inset 0 0 6px #272727;
+#style-3::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px #272727;
   height: 0.1px;
   width: 10px;
-	background-color: #272727;
+  background-color: #272727;
 }
 
-#style-3::-webkit-scrollbar
-{
-	width: 4px;
-	background-color: #F5F5F5;
+#style-3::-webkit-scrollbar {
+  width: 4px;
+  background-color: #F5F5F5;
 }
 
-#style-3::-webkit-scrollbar-thumb
-{
-	background-color: #d0d0d0;
+#style-3::-webkit-scrollbar-thumb {
+  background-color: #d0d0d0;
 }
 
-.chatIcon{
+.chatIcon {
   margin-top: 30px;
   margin-left: 10px;
   width: 33px;
@@ -205,6 +204,7 @@ h3 {
   margin-right: 10px;
   /* Adjust margin as needed */
 }
+
 .chatSideBar-mainRight {
   display: flex;
   flex-direction: column;
@@ -259,7 +259,7 @@ h3 {
   cursor: pointer;
 }
 
-.closeBtn{
+.closeBtn {
   width: 15px;
   height: 15px;
   margin-right: 10px;
@@ -299,7 +299,7 @@ h3 {
   cursor: pointer;
 }
 
-.chatsContainer .chatItem:hover  p{
+.chatsContainer .chatItem:hover p {
   color: #000000;
   font-family: "Poppins";
 }
@@ -354,7 +354,7 @@ h3 {
 }
 
 
-.chatItemElements:hover p{
+.chatItemElements:hover p {
   font-family: "Poppins";
   color: #000000;
   margin: 0;
@@ -368,7 +368,7 @@ h3 {
   align-items: center;
 }
 
-.chatItem.active .chatItemElements p{
+.chatItem.active .chatItemElements p {
   color: #000000;
   margin: 0;
   /* Remove default margin to ensure tight spacing */
@@ -413,19 +413,20 @@ h3 {
   background-color: #7d2c2c;
 }
 
-.chatWindow-container{
+.chatWindow-container {
   width: 73vw;
   background-color: #2c2c2c;
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
-.Calor-Logo{
-  width:90px;
+
+.Calor-Logo {
+  width: 90px;
   height: 90px;
 }
 
-.chatWindow-container-centre{
+.chatWindow-container-centre {
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -433,12 +434,12 @@ h3 {
 }
 
 /* .my-message { */
-  /* background: $green; */
+/* background: $green; */
 /* } */
 
-.message {     
+.message {
   margin-right: 10px;
-  margin-top: 10px; 
+  margin-top: 10px;
   color: white;
   padding: 18px 20px;
   line-height: 26px;
@@ -448,7 +449,7 @@ h3 {
   width: 50%;
   position: relative;
   float: right;
-  
+
   &:after {
     bottom: 100%;
     left: 7%;
@@ -466,7 +467,7 @@ h3 {
 
 .other-message {
   background: #383838;
-  
+
   &:after {
     border-bottom-color: #383838;
     left: 93%;
@@ -502,28 +503,29 @@ h3 {
 
 .chat-message {
   padding: 30px;
-  
 
-  
-  .fa-file-o, .fa-file-image-o {
+
+
+  .fa-file-o,
+  .fa-file-image-o {
     font-size: 16px;
     color: gray;
     cursor: pointer;
-    
+
   }
-  
+
 
 }
 
 
-.chatWindowMainContainer{
+.chatWindowMainContainer {
   display: flex;
   flex-direction: column;
   height: 100vh;
   width: 100%;
 }
 
-.chatWindowMainHeaderBar{
+.chatWindowMainHeaderBar {
   display: flex;
   flex-direction: row;
   width: 100%;
@@ -531,18 +533,21 @@ h3 {
   background-color: #2c2c2c;
 }
 
-.chatWindowMainElements{
+.chatWindowMainElements {
   display: flex;
   flex-direction: column;
   width: 100%;
-  height:84vh ;
+  height: 84vh;
   background-color: #626060;
-  overflow-y: auto; /* Enable vertical scrollbar when content exceeds container height */
-  scrollbar-width: thin; /* Firefox */
-  scrollbar-color: transparent transparent; /* Firefox */
+  overflow-y: auto;
+  /* Enable vertical scrollbar when content exceeds container height */
+  scrollbar-width: thin;
+  /* Firefox */
+  scrollbar-color: transparent transparent;
+  /* Firefox */
 }
 
-.chatWindowMainChatElements{
+.chatWindowMainChatElements {
   display: flex;
   flex-direction: row;
   width: 100%;
@@ -551,3 +556,133 @@ h3 {
   background-color: #2c2c2c;
 }
 
+.modal {
+  display: flex;
+  flex-direction: column;
+}
+
+.modalHeader {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.modalMain{
+  width: 100%;
+}
+.closeBtnContainer {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 1rem;
+  width: 50%;
+}
+
+
+.form__group {
+  position: relative;
+  padding: 15px 0 0;
+  margin-top: 10px;
+  width: 100%;
+}
+
+.form__field {
+  font-family: inherit;
+  width: 100%;
+  border: 0;
+  border-bottom: 2px solid #9b9b9b;
+  outline: 0;
+  font-size: 1.3rem;
+  padding: 7px 0;
+  background: transparent;
+  transition: border-color 0.2s;
+
+  &::placeholder {
+    color: transparent;
+  }
+
+  &:placeholder-shown~.form__label {
+    font-size: 1.3rem;
+    cursor: text;
+    top: 20px;
+  }
+}
+
+.form__label {
+  position: absolute;
+  top: 0;
+  display: block;
+  transition: 0.2s;
+  font-size: 1rem;
+  color: #9b9b9b;
+}
+
+.form__field:focus {
+  ~.form__label {
+    position: absolute;
+    top: 0;
+    display: block;
+    transition: 0.2s;
+    font-size: 1rem;
+    color: #626060;
+    font-weight: 700;
+  }
+
+  padding-bottom: 6px;
+  font-weight: 700;
+  border-width: 3px;
+  border-image: linear-gradient(to right, #626060, #2c2c2c);
+  border-image-slice: 1;
+}
+
+.form__field {
+
+  &:required,
+  &:invalid {
+    box-shadow: none;
+  }
+}
+
+.modalBtns{
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+  align-items: flex-end;
+  gap: 5px;
+  padding-right: 6px;
+  padding-bottom: 2px;
+}
+.createBtn {
+  margin-top: 1rem;
+  width: 20%;
+  height: 2rem;
+  background-color: rgba(185, 28, 28);
+  color: white;
+  align-items: center;
+  justify-content: center;
+  border-color: transparent;
+  border-radius: 0.5rem;
+  border-width: 1px;
+  display: inline-flex;
+  font-size: .875rem;
+  font-weight: 500;
+  line-height: 1.25rem;
+  cursor: pointer;
+}
+
+.cancelBtn {
+  margin-top: 1rem;
+  cursor: pointer;
+  width: 20%;
+  height: 2rem;
+  color: #2c2c2c;
+  background-color: #aeaaaa;
+  align-items: center;
+  justify-content: center;
+  border-color: transparent;
+  border-radius: 0.5rem;
+  border-width: 1px;
+  display: inline-flex;
+  font-size: .875rem;
+  font-weight: 500;
+  /* padding: 0.5rem 0.75rem; */
+}

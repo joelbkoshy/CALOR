@@ -25,7 +25,6 @@ type ModalProps = {
 }
 
 const AddModal = ({ show=true,onClose,children} : ModalProps) => {
-    console.log("Came here bro : ",show)
 
     if(!show) return null
   
