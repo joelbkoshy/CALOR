@@ -4,9 +4,31 @@ import os
 import httpx
 import traceback
 import asyncio
+from pymongo import MongoClient
+
 
 app = Flask(__name__)
 CORS(app)
+client = MongoClient()
+
+new_posts = [
+    {
+        "author": "Mike",
+        "text": "Another post!",
+        "tags": ["bulk", "insert"],
+    },
+    {
+        "author": "Eliot",
+        "title": "MongoDB is fun",
+        "text": "and pretty easy too!",
+    },
+]
+
+db = client.test
+collection = db.users
+result = collection.insert_many(new_posts)
+print("hi the db :",db,collection.find({}))
+
 
 
 async def forward_asr_request():
