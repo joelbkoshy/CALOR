@@ -27,7 +27,6 @@ new_posts = [
 db = client.test
 collection = db.users
 result = collection.insert_many(new_posts)
-print("hi the db :",db,collection.find({}))
 
 
 
