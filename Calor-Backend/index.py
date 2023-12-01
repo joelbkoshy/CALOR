@@ -4,7 +4,7 @@ import os
 import httpx
 import traceback
 import asyncio
-from pymongo import MongoClient
+from pymongo import MongoClient,DESCENDING
 import uuid
 
 
@@ -73,6 +73,12 @@ def new_Chat():
     except Exception as e:
         traceback.print_exc()
         return jsonify({"error": f"Error creating chat: {str(e)}"}), 500
+    
+@app.route('/getChats',methods=['GET'])
+def get_chats():
+    data=list(collection.find({},{'_id': 0}).sort('createdAt', DESCENDING))
+    print(data[0])
+    return  data
 
 if __name__ == "__main__":
     port = int(os.environ.get("FLASK_PORT",8000))

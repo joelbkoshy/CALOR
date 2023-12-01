@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import './style.css'
 import AudioRecorder from '../components/AudioRecorder'
 import plusImage from '../assets/plus.png';
@@ -11,27 +11,31 @@ import { Button } from '@mui/material';
 import axios from 'axios'
 
 
+
 const ChatMain = () => {
 
     const [activeChatIndex, setActiveChatIndex] = useState(null);
 
-    const [newChat,setNewChat] = useState<string>("");
+    const [newChat, setNewChat] = useState<string>("");
+    const [chats, setChats] = useState<any[]>([])
+
     const handleChatItemClick = (index: any) => {
-        console.log("The chat index : ", index)
         setActiveChatIndex((prevIndex) => (prevIndex === index ? null : index));
     };
 
-    const handleNewChat = (name : string)=>{
+    const handleNewChat = (name: string) => {
         setNewChat(name)
     }
 
     const handleNewChatCreation = async () => {
         try {
-            console.log("hey",`${process.env.REACT_APP_FLASK_URL}/new_chat`)
-            const result = await axios.post(`${process.env.REACT_APP_FLASK_URL}/new_chat`,{chatName:newChat})
-            console.log("The result : ",result)
+            const currentTime = new Date().toISOString();
+            await axios.post(`${process.env.REACT_APP_FLASK_URL}/new_chat`, { chatName: newChat, createdAt: currentTime })
+            const updatedChats = await axios.get(`${process.env.REACT_APP_FLASK_URL}/getChats`);
+            setChats(updatedChats.data);
+            handleClose()
         } catch (error) {
-            console.log("Something went wrong",error)
+            console.log("Something went wrong", error)
         }
     }
 
@@ -39,46 +43,23 @@ const ChatMain = () => {
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
-    const chats: any[] = [
-        "Chat 1",
-        "Chat 2",
-        "Chat 3",
-        "Chat 4",
-        "Chat 5",
-        "Chat 6",
-        "Chat 7",
-        "Chat 8",
-        "Chat 9",
-        "Chat 10",
-        "Chat 1",
-        "Chat 2",
-        "Chat 3",
-        "Chat 4",
-        "Chat 5",
-        "Chat 6",
-        "Chat 7",
-        "Chat 8",
-        "Chat 9",
-        "Chat 10", "Chat 1",
-        "Chat 2",
-        "Chat 3",
-        "Chat 4",
-        "Chat 5",
-        "Chat 6",
-        "Chat 7",
-        "Chat 8",
-        "Chat 9",
-        "Chat 10", "Chat 1",
-        "Chat 2",
-        "Chat 3",
-        "Chat 4",
-        "Chat 5",
-        "Chat 6",
-        "Chat 7",
-        "Chat 8",
-        "Chat 9",
-        "Chat 10",
-    ];
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const result = axios.get(`${process.env.REACT_APP_FLASK_URL}/getChats`)
+                    .then(res => {
+                        console.log("The response : ", res.data)
+                        setChats(res.data)
+                    })
+                console.log("The chats : ", result)
+            } catch (error) {
+                console.log("Something went wrong ", error)
+            }
+        }
+        fetchData()
+    }, [])
+
     return (
         <div className='chatMain-container'>
             <div className='chatSideBar-container'>
@@ -107,7 +88,7 @@ const ChatMain = () => {
                                                 </div>
                                                 <div className="modalMain">
                                                     <div className="form__group field">
-                                                        <input type="input" className="form__field" placeholder="Name" name="name" id='name' required onChange={(e)=>{handleNewChat(e.target.value)}} />
+                                                        <input type="input" className="form__field" placeholder="Name" name="name" id='name' required onChange={(e) => { handleNewChat(e.target.value) }} />
                                                         <label htmlFor="name" className="form__label">Enter the name of the chat</label>
                                                     </div>
                                                     <div className="modalBtns">
@@ -144,7 +125,7 @@ const ChatMain = () => {
                                         >
                                             <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
                                         </svg>
-                                        <p>{chat}</p>
+                                        <p>{chat?.chatName}</p>
                                     </div>
                                     <div className="chatEditElements">
                                         <svg
