@@ -5,28 +5,17 @@ import httpx
 import traceback
 import asyncio
 from pymongo import MongoClient
+import uuid
 
 
 app = Flask(__name__)
 CORS(app)
 client = MongoClient()
 
-new_posts = [
-    {
-        "author": "Mike",
-        "text": "Another post!",
-        "tags": ["bulk", "insert"],
-    },
-    {
-        "author": "Eliot",
-        "title": "MongoDB is fun",
-        "text": "and pretty easy too!",
-    },
-]
 
 db = client.test
 collection = db.users
-result = collection.insert_many(new_posts)
+
 
 
 
@@ -70,6 +59,20 @@ def asr_route():
     result = loop.run_until_complete(forward_asr_request())
     print("The result",result)
     return result
+
+@app.route('/new_chat',methods=['POST'])
+def new_Chat():
+    try:
+        data=request.json
+        print("The data : ",data)
+        chat_id = str(uuid.uuid4())
+        data['chat_id'] = chat_id
+        collection.insert_one(data)
+        return jsonify({"chat_id": chat_id, "message": "Chat created successfully"}), 201
+    
+    except Exception as e:
+        traceback.print_exc()
+        return jsonify({"error": f"Error creating chat: {str(e)}"}), 500
 
 if __name__ == "__main__":
     port = int(os.environ.get("FLASK_PORT",8000))
