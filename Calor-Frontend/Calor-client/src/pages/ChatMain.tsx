@@ -8,16 +8,32 @@ import CalorLogo from '../assets/pray.png'
 import AddModal from '../components/AddModal';
 import closeBtn from '../assets/close.png'
 import { Button } from '@mui/material';
+import axios from 'axios'
 
 
 const ChatMain = () => {
 
     const [activeChatIndex, setActiveChatIndex] = useState(null);
 
+    const [newChat,setNewChat] = useState<string>("");
     const handleChatItemClick = (index: any) => {
         console.log("The chat index : ", index)
         setActiveChatIndex((prevIndex) => (prevIndex === index ? null : index));
     };
+
+    const handleNewChat = (name : string)=>{
+        setNewChat(name)
+    }
+
+    const handleNewChatCreation = async () => {
+        try {
+            console.log("hey",`${process.env.REACT_APP_FLASK_URL}/new_chat`)
+            const result = await axios.post(`${process.env.REACT_APP_FLASK_URL}/new_chat`,{chatName:newChat})
+            console.log("The result : ",result)
+        } catch (error) {
+            console.log("Something went wrong",error)
+        }
+    }
 
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
@@ -91,12 +107,12 @@ const ChatMain = () => {
                                                 </div>
                                                 <div className="modalMain">
                                                     <div className="form__group field">
-                                                        <input type="input" className="form__field" placeholder="Name" name="name" id='name' required />
+                                                        <input type="input" className="form__field" placeholder="Name" name="name" id='name' required onChange={(e)=>{handleNewChat(e.target.value)}} />
                                                         <label htmlFor="name" className="form__label">Enter the name of the chat</label>
                                                     </div>
                                                     <div className="modalBtns">
                                                         <button className='cancelBtn' onClick={handleClose}>Cancel</button>
-                                                        <button className='createBtn' >Create</button>
+                                                        <button className='createBtn' onClick={handleNewChatCreation}>Create</button>
                                                     </div>
                                                 </div>
                                             </div>
