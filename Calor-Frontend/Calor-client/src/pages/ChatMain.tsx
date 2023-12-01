@@ -95,8 +95,8 @@ const ChatMain = () => {
                                                         <label htmlFor="name" className="form__label">Enter the name of the chat</label>
                                                     </div>
                                                     <div className="modalBtns">
-                                                        <button className='cancelBtn'>Cancel</button>
-                                                        <button className='createBtn'>Create</button>
+                                                        <button className='cancelBtn' onClick={handleClose}>Cancel</button>
+                                                        <button className='createBtn' >Create</button>
                                                     </div>
                                                 </div>
                                             </div>

@@ -10,7 +10,6 @@ const Home = () => {
   return (
     <div className='home-container'>
       <div className='home-main'>
-        {/* <SideBar /> */}
         <div className='image-switcher-container'>
           <h1>CALOR</h1>
           <ImageSwitcher />
