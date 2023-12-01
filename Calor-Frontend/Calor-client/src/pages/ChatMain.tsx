@@ -14,13 +14,15 @@ import axios from 'axios'
 
 const ChatMain = () => {
 
-    const [activeChatIndex, setActiveChatIndex] = useState(null);
-
+    const [activeChatIndex, setActiveChatIndex] = useState<any>(null);
+    const [activeChat,setActiveChat] = useState<any>(null)
     const [newChat, setNewChat] = useState<string>("");
     const [chats, setChats] = useState<any[]>([])
 
     const handleChatItemClick = (index: any) => {
-        setActiveChatIndex((prevIndex) => (prevIndex === index ? null : index));
+        setActiveChatIndex((prevIndex: any) => (prevIndex === index ? null : index));
+        setActiveChat(chats?.filter((chat:any)=> chat?.chat_id===index))
+        console.log("The active chat : ",activeChat,activeChatIndex)
     };
 
     const handleNewChat = (name: string) => {
@@ -30,7 +32,9 @@ const ChatMain = () => {
     const handleNewChatCreation = async () => {
         try {
             const currentTime = new Date().toISOString();
-            await axios.post(`${process.env.REACT_APP_FLASK_URL}/new_chat`, { chatName: newChat, createdAt: currentTime })
+            const result = await axios.post(`${process.env.REACT_APP_FLASK_URL}/new_chat`, { chatName: newChat, createdAt: currentTime })
+            console.log("The result : ",result)
+            setActiveChatIndex(result.data.chat_id)
             const updatedChats = await axios.get(`${process.env.REACT_APP_FLASK_URL}/getChats`);
             setChats(updatedChats.data);
             handleClose()
@@ -109,7 +113,7 @@ const ChatMain = () => {
                     <div className='chatSideBar-mainRightHeaderContainer2' id="style-3">
                         <div className="chatsContainer">
                             {chats?.map((chat, index) => (
-                                <div key={index} className={`chatItem ${activeChatIndex === index ? 'active' : ''}`} onClick={() => handleChatItemClick(index)}>
+                                <div key={index} className={`chatItem ${activeChatIndex === chat.chat_id ? 'active' : ''}`} onClick={() => handleChatItemClick(chat.chat_id)}>
                                     <div className="chatItemElements">
                                         <svg
                                             stroke="currentColor"
@@ -170,7 +174,7 @@ const ChatMain = () => {
             </div>
             <div className='chatWindow-container'>
                 {
-                    activeChatIndex !== null ? <ChatWindow index={activeChatIndex} /> :
+                    activeChatIndex !== null ? <ChatWindow index={activeChatIndex} chat={activeChat} /> :
                         <div className='chatWindow-container-centre'>
                             <img src={CalorLogo} alt="" className='Calor-Logo' />
                             <h2>Hey Buddy, Feel free to talk!</h2>

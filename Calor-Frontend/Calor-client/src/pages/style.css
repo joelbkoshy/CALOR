@@ -328,13 +328,20 @@ h3 {
   display: flex;
   flex-direction: row;
   width: 70%;
+  max-width: 70%;
 }
 
+
+.chatItem.active .chatItemElements{
+  width: 70%;
+  max-width: 70%;
+
+}
 .chatItem.active .chatEditElements {
   display: flex;
   flex-direction: row;
   justify-content: end;
-  margin-left: 11rem;
+  width: 30%;
 }
 
 .icon-sm {

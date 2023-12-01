@@ -38,16 +38,12 @@ async def forward_asr_request():
                 # Make the request to the external ASR service
                 print("Going to send the request")
                 response = await client.post(target_url, files=files, headers=headers)
-                print("The response: ", response.text)
-
-                # Return the response from the external ASR service
                 return response.text
 
         else:
             return jsonify({"error": "No audio file provided"}), 400
 
     except Exception as e:
-        # Print the error message and return an error response
         traceback.print_exc()
         print("Error during ASR request:", str(e), " done!!!")
         return jsonify({"error": f"Error during ASR request: {str(e)}"}), 500
@@ -57,18 +53,18 @@ def asr_route():
     loop = asyncio.new_event_loop()
     asyncio.set_event_loop(loop)
     result = loop.run_until_complete(forward_asr_request())
-    print("The result",result)
     return result
 
 @app.route('/new_chat',methods=['POST'])
 def new_Chat():
     try:
         data=request.json
-        print("The data : ",data)
         chat_id = str(uuid.uuid4())
         data['chat_id'] = chat_id
         collection.insert_one(data)
-        return jsonify({"chat_id": chat_id, "message": "Chat created successfully"}), 201
+        data.pop('_id', None)
+        print(data)
+        return jsonify(data), 201
     
     except Exception as e:
         traceback.print_exc()
@@ -77,7 +73,6 @@ def new_Chat():
 @app.route('/getChats',methods=['GET'])
 def get_chats():
     data=list(collection.find({},{'_id': 0}).sort('createdAt', DESCENDING))
-    print(data[0])
     return  data
 
 if __name__ == "__main__":
