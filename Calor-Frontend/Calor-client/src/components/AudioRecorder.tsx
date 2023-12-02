@@ -11,6 +11,7 @@ const AudioRecorder = () => {
   const mediaRecorder = useRef<any>(null);
   const mimeType = "audio/webm";
 
+
   const startRecording = async () => {
     try {
       setShowBar(false);
@@ -36,14 +37,6 @@ const AudioRecorder = () => {
     }
   };
 
-  // const saveAudioLocally = (audioUrl : any) => {
-  //   // Implement your logic to save the audio locally using the audioUrl
-  //   // For example, you can create an anchor element and trigger a download
-  //   const a = document.createElement('a');
-  //   a.href = audioUrl;
-  //   a.download = 'recorded_audio.mp3'; // Specify the desired file name
-  //   a.click();
-  // };
 
   const stopRecording = async () => {
     setRecordingStatus("inactive");
@@ -54,7 +47,6 @@ const AudioRecorder = () => {
       const audioFormData = new FormData();
       audioFormData.append("audio_file", audioBlob, "recorded_audio.webm");
 
-      // Send the audioFormData using axios 
       axios.post("http://localhost:8000/asr", audioFormData, {
         headers: {
           "Content-Type": "multipart/form-data",
@@ -99,8 +91,8 @@ const AudioRecorder = () => {
   }, [audio, showBar, key]);
 
   return (
-    <div>
-      <button onClick={startRecording} disabled={recordingStatus === "recording"}>
+    <div className="AudioRecorderContainer">
+      <button onClick={startRecording} disabled={recordingStatus === "recording"} className="micControlBtn">
         Start Recording
       </button>
       <button onClick={stopRecording} disabled={recordingStatus === "inactive"}>
