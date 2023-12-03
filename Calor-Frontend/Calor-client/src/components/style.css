@@ -151,20 +151,79 @@
 
 }
 
-.mainInput ::placeholder{
+.mainInput ::placeholder {
   display: flex;
   align-content: center;
   align-items: center;
   color: gray;
 }
 
-.AudioRecorderContainer{
+.AudioRecorderContainer {
   display: flex;
   flex-direction: row;
   width: 100%;
   height: 100%;
-  justify-content: end;
+  justify-content: flex-end;
   align-items: center;
   gap: 1;
-  background-color: aquamarine;
+  background: none;
+}
+
+.micControlBtn {
+  display: flex;
+  background: none;
+  /* Set background to 'none' */
+  border: none;
+  /* Remove border */
+  cursor: pointer;
+}
+
+.micRecorder {
+  width: 20px;
+  height: 100%;
+  color: #e7e7e7;
+}
+
+.stopControlBtnContainer{
+  display: flex;
+  width: 100%;
+  height: 100%;
+  flex-direction: row;
+  justify-content: space-between;
+  position: relative;
+}
+.stopwatchDisplay{
+  width: 3rem;
+  height: 100%;
+  color: #e7e7e7;
+  font-size: medium;
+  /* position: relative; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.recordIconContainer{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.recordIcon {
+  width: 12px;
+  height: 12px;
+  margin-right: 4px;
+}
+
+
+.sendIconContainer{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.sendIcon{
+  width:30px;
+  height: 30px;
 }

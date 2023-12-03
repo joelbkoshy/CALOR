@@ -1,5 +1,9 @@
 import React, { useState, useRef, useEffect } from "react";
 import axios from "axios";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faMicrophone } from "@fortawesome/free-solid-svg-icons";
+import recordIcon from '../assets/icons8-record-ios-16-filled-32.png'
+import sendIcon from '../assets/icons8-paper-plane-64.png'
 
 
 const AudioRecorder = () => {
@@ -10,10 +14,13 @@ const AudioRecorder = () => {
   const [key, setKey] = useState(0); // Add a key variable
   const mediaRecorder = useRef<any>(null);
   const mimeType = "audio/webm";
+  const [startTime, setStartTime] = useState(0);
+  const [elapsedTime, setElapsedTime] = useState(0);
 
 
   const startRecording = async () => {
     try {
+      setStartTime(Date.now());
       setShowBar(false);
       await setAudioChunks([]);
       setKey((prevKey) => prevKey + 1); // Update the key to trigger re-render
@@ -40,6 +47,7 @@ const AudioRecorder = () => {
 
   const stopRecording = async () => {
     setRecordingStatus("inactive");
+    setElapsedTime(0);
     mediaRecorder.current.stop();
 
     mediaRecorder.current.onstop = () => {
@@ -67,7 +75,12 @@ const AudioRecorder = () => {
     };
   };
 
-
+  const formatTime = (milliseconds: any) => {
+    const seconds = Math.floor(milliseconds / 1000);
+    const minutes = Math.floor(seconds / 60);
+    const formattedSeconds = seconds % 60;
+    return `${minutes}:${formattedSeconds < 10 ? '0' : ''}${formattedSeconds}`;
+  };
 
 
 
@@ -90,17 +103,43 @@ const AudioRecorder = () => {
   useEffect(() => {
   }, [audio, showBar, key]);
 
+  useEffect(() => {
+    let interval: any;
+
+    if (recordingStatus === "recording") {
+      interval = setInterval(() => {
+        setElapsedTime(Date.now() - startTime);
+      }, 1000);
+    }
+
+    return () => clearInterval(interval);
+  }, [recordingStatus, startTime]);
+
   return (
     <div className="AudioRecorderContainer">
-      <button onClick={startRecording} disabled={recordingStatus === "recording"} className="micControlBtn">
-        Start Recording
-      </button>
-      <button onClick={stopRecording} disabled={recordingStatus === "inactive"}>
-        Stop Recording
-      </button>
+      {
+        recordingStatus !== "recording" ? <button onClick={startRecording} disabled={recordingStatus === "recording"} className="micControlBtn">   <FontAwesomeIcon icon={faMicrophone} className="micRecorder" />
+          <span className="sr-only">Start Recording</span>
+        </button> :
+          <div className="stopControlBtnContainer">
+            <div className="recordIconContainer">
+              <img src={recordIcon} alt="" className="recordIcon" />
+            </div>
+            <div className="stopwatchDisplay">{formatTime(elapsedTime)}</div>
+            <button onClick={stopRecording} className="micControlBtn">
+              {/* Stop Recording */}
+              <div className="sendIconContainer">
+                <img src={sendIcon} alt="" className="sendIcon" />
+              </div>
+            </button>
+          </div>
+      }
       {handleRecordedAudio(audio, mimeType)}
     </div>
   );
-};
+}
+
+
+
 
 export default AudioRecorder;
