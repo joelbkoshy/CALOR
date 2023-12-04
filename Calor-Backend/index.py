@@ -23,10 +23,11 @@ async def forward_asr_request():
     # Define the target URL and headers for the external ASR service
     target_url = 'http://localhost:9000/asr?encode=true&task=transcribe&word_timestamps=false&output=txt'
     headers = {'accept': 'application/json'}
-
+ 
     try:
         # Extract audio_file from the request
         audio_file = request.files.get('audio_file')
+        chat_id = request.form.get('chat_id')
 
         if audio_file:
             # Save the file locally (optional)

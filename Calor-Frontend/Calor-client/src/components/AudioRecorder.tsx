@@ -57,7 +57,7 @@ const AudioRecorder = () => {
       const audioBlob = new Blob(audioChunks, { type: mimeType });
       const audioFormData = new FormData();
       audioFormData.append("audio_file", audioBlob, "recorded_audio.webm");
-      // audioFormData.append()
+      audioFormData.append("chat_id",activeChat?.chat_id)
 
       axios.post("http://localhost:8000/asr", audioFormData, {
         headers: {

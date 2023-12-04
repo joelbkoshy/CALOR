@@ -1,8 +1,6 @@
 import React, { useEffect, useRef } from 'react'
 import './style.css'
 import AudioRecorder from './AudioRecorder';
-import { faMicrophone, faPause } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 
 const ChatWindow = ({ index, chat }: any) => {
@@ -89,10 +87,8 @@ const ChatWindow = ({ index, chat }: any) => {
             width={25}
           >
             <g strokeWidth="0">
-              {/* SVGRepo_bgCarrier */}
             </g>
             <g stroke-linecap="round" stroke-linejoin="round">
-              {/* SVGRepo_tracerCarrier */}
             </g>
             <g id="SVGRepo_iconCarrier">
               <defs>
