@@ -28,7 +28,7 @@ async def forward_asr_request():
         # Extract audio_file from the request
         audio_file = request.files.get('audio_file')
         chat_id = request.form.get('chat_id')
-
+        print("test")
         if audio_file:
             # Save the file locally (optional)
             save_path = os.path.join("local_audio_files", audio_file.filename)
