@@ -1,12 +1,14 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect,useContext } from "react";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMicrophone } from "@fortawesome/free-solid-svg-icons";
 import recordIcon from '../assets/icons8-record-ios-16-filled-32.png'
 import sendIcon from '../assets/icons8-paper-plane-64.png'
+import { ActiveChatContext } from "../context/ChatContext";
 
 
 const AudioRecorder = () => {
+  const {activeChat} = useContext(ActiveChatContext)
   const [recordingStatus, setRecordingStatus] = useState("inactive");
   const [audioChunks, setAudioChunks] = useState([]);
   const [audio, setAudio] = useState<any>(null);
@@ -20,13 +22,14 @@ const AudioRecorder = () => {
 
   const startRecording = async () => {
     try {
-      setStartTime(Date.now());
       setShowBar(false);
+      console.log("The recording chat  : ",activeChat)
       await setAudioChunks([]);
       setKey((prevKey) => prevKey + 1); // Update the key to trigger re-render
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
       setRecordingStatus("recording");
 
+      setStartTime(Date.now());
       const media = new MediaRecorder(stream, { mimeType });
       mediaRecorder.current = media;
       mediaRecorder.current.start();
@@ -54,6 +57,7 @@ const AudioRecorder = () => {
       const audioBlob = new Blob(audioChunks, { type: mimeType });
       const audioFormData = new FormData();
       audioFormData.append("audio_file", audioBlob, "recorded_audio.webm");
+      // audioFormData.append()
 
       axios.post("http://localhost:8000/asr", audioFormData, {
         headers: {

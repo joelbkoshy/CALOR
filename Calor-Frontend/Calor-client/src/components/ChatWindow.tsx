@@ -7,7 +7,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const ChatWindow = ({ index, chat }: any) => {
 
-  console.log("The chat : ", chat)
   const chatWindowScrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -17,7 +16,7 @@ const ChatWindow = ({ index, chat }: any) => {
   return (
     <div className='chatWindowMainContainer' >
       <div className="chatWindowMainHeaderBar">
-        <h2>{chat[0]?.chatName}</h2>
+        <h2>{chat ? chat?.chatName : ""}</h2>
       </div>
       <div className="chatWindowMainElements" ref={chatWindowScrollRef}>
         <div className="chat-history">
