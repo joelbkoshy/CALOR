@@ -158,7 +158,7 @@
   color: gray;
 }
 
-.AudioRecorderContainer {
+/* .AudioRecorderContainer {
   display: flex;
   flex-direction: row;
   width: 100%;
@@ -167,7 +167,7 @@
   align-items: center;
   gap: 1;
   background: none;
-}
+} */
 
 .micControlBtn {
   display: flex;
@@ -225,4 +225,38 @@
 .sendIcon{
   width:30px;
   height: 30px;
+}
+
+.chatWindowMainChatElements{
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: flex-start;
+  width: 100%
+}
+
+.chatSVGContainer{
+  width: fit-content;
+}
+
+.chatInputTextContainer{
+  width: 100%;
+}
+/* .sendIconContainer,
+.chatWindowAudioContainer {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+} */
+.chatWindowAudioContainer{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  flex-grow: 1;
+}
+
+.inputText{
+  width: 100%;
 }

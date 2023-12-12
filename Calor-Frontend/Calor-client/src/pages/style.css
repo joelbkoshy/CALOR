@@ -118,7 +118,6 @@ h1 {
 
 .submit-button {
   padding: 10px 20px;
-  background-color: #0968cd;
   color: white;
   border: none;
   border-radius: 4px;
@@ -445,42 +444,59 @@ h3 {
 /* background: $green; */
 /* } */
 
-.message {
+.messageContainer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: flex-end;
+}
+
+.message,
+.other-message {
   margin-right: 10px;
   margin-top: 10px;
   color: white;
   padding: 18px 20px;
   line-height: 26px;
   font-size: 16px;
-  border-radius: 7px;
+  border-radius: 12px;
   margin-bottom: 30px;
-  width: 50%;
+  width: 100%;
   position: relative;
   float: right;
+  background-color: #0b6251;
+}
+
+.message {
+  background: #383838;
+  width: 50%;
+  float: left;
+  clear: both;
+}
+
+.my-message {
+  background-color: #383838;
+}
+
+.other-message {
+  background-color: #0b6251;
+  float: right;
+
 
   &:after {
-    bottom: 100%;
-    left: 7%;
-    border: solid transparent;
-    content: " ";
-    height: 0;
-    width: 0;
+    content: "";
+    display: table;
+    clear: both;
     position: absolute;
     pointer-events: none;
     border-bottom-color: green;
     border-width: 10px;
     margin-left: -10px;
+    /* Clear the float */
   }
 }
 
-.other-message {
-  background: #383838;
 
-  &:after {
-    border-bottom-color: #383838;
-    left: 93%;
-  }
-}
 
 
 /* textarea {
@@ -541,6 +557,12 @@ h3 {
   background-color: #2c2c2c;
 }
 
+
+.chatWindowMainHeaderBarContent{
+  width: 100%;
+  margin-left: 1rem;
+}
+
 .chatWindowMainElements {
   display: flex;
   flex-direction: column;
@@ -548,11 +570,26 @@ h3 {
   height: 84vh;
   background-color: #626060;
   overflow-y: auto;
-  /* Enable vertical scrollbar when content exceeds container height */
+
+  /* Firefox */
   scrollbar-width: thin;
-  /* Firefox */
-  scrollbar-color: transparent transparent;
-  /* Firefox */
+  scrollbar-color: #272727 transparent; /* Color for the track and thumb */
+
+  /* WebKit (Chrome, Safari) */
+  &::-webkit-scrollbar {
+    width: 8px; /* Set the width of the scrollbar */
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: transparent; /* Set the color of the thumb */
+  }
+}
+
+.chat-history {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
 }
 
 .chatWindowMainChatElements {
@@ -596,21 +633,22 @@ h3 {
   outline: none;
   background-color: transparent;
   caret-color: #e7e7e7;
-  cursor:auto ;
+  cursor: auto;
   color: #e7e7e7;
 }
 
 
-.chatWindowMainChatElements .chatInputTextContainer .inputText::placeholder{
+.chatWindowMainChatElements .chatInputTextContainer .inputText::placeholder {
   color: #e7e7e7;
   font-size: medium;
 }
 
-.chatWindowMainChatElements .chatWindowAudioContainer{
-width: max-content;
-margin-right: 1rem;
-height: 100%;
+.chatWindowMainChatElements .chatWindowAudioContainer {
+  width: max-content;
+  margin-right: 1rem;
+  height: 100%;
 }
+
 .modal {
   display: flex;
   flex-direction: column;

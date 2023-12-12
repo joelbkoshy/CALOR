@@ -1,3 +1,5 @@
+import datetime
+import pickle
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import os
@@ -6,6 +8,19 @@ import traceback
 import asyncio
 from pymongo import MongoClient,DESCENDING
 import uuid
+
+
+from bardapi import Bard
+
+
+import torch
+import bardapi
+import os
+
+# set your __Secure-1PSID value to key
+# token = 'dwgz9hbe6wWwR0o9qy_5DJbo2znNxcMxUaN_kYsAVHURp86e1FH94PBF_PiQOELKCV2KKQ.'
+
+
 
 
 app = Flask(__name__)
@@ -28,19 +43,57 @@ async def forward_asr_request():
         # Extract audio_file from the request
         audio_file = request.files.get('audio_file')
         chat_id = request.form.get('chat_id')
-        print("test")
         if audio_file:
-            # Save the file locally (optional)
             save_path = os.path.join("local_audio_files", audio_file.filename)
             audio_file.save(save_path)
-            # Create a dictionary with the file content
             files = {'audio_file': (audio_file.filename, open(save_path, 'rb'), audio_file.content_type)}
             async with httpx.AsyncClient(timeout=None) as client:
-                # Make the request to the external ASR service
                 print("Going to send the request")
                 response = await client.post(target_url, files=files, headers=headers)
-                return response.text
+                response_text = response.text
+                print("Current Working Directory:", os.getcwd())
+                # set your input text
+                # input_text = ""
 
+# Send an API request and get a response.
+                # bard = Bard(token=token)
+                # bard_response=bard.get_answer(response_text)['content']
+                
+                with open('D:\\MCA\\5th_TRIMESTER\\SPECIALIZATION_PROJECT\\CALOR\\Calor-Backend\\models\\distilbert_model.pkl', 'rb') as model_file, \
+                open('D:\\MCA\\5th_TRIMESTER\\SPECIALIZATION_PROJECT\\CALOR\\Calor-Backend\\models\\distilbert_tokenizer.pkl', 'rb') as tokenizer_file, \
+                open('D:\\MCA\\5th_TRIMESTER\\SPECIALIZATION_PROJECT\\CALOR\\Calor-Backend\\models\\responses.pkl', 'rb') as responses_file:
+                 loaded_model = pickle.load(model_file)
+                 loaded_tokenizer = pickle.load(tokenizer_file)
+                 loaded_responses = pickle.load(responses_file)
+           # Test the loaded model and tokenizer with a longer sentence
+                 input_ids = loaded_tokenizer.encode(response_text, return_tensors='pt', max_length=512, truncation=True)
+
+                with torch.no_grad():
+                 output = loaded_model(input_ids)
+
+                probs = torch.softmax(output.logits, dim=1)
+                predicted_class = torch.argmax(probs).item()
+
+            # Get the predicted response using the predicted class as an index
+                predicted_response = loaded_responses[predicted_class]
+
+            # Save the response text as a message in MongoDB
+                message_id = str(uuid.uuid4())
+                current_time = datetime.datetime.utcnow()
+        
+                message = {
+                'message_id': message_id,
+                'user_message': response_text,
+                'calor_message': predicted_response,
+                'timestamp': current_time.strftime("%Y-%m-%dT%H:%M:%S.%fZ")
+                }
+
+            # Find the document with the given chat_id or create a new one
+                query = {'chat_id': chat_id}
+                update = {'$push': {'messages': message}, '$setOnInsert': {'createdAt': datetime.datetime.utcnow()}}
+                collection.update_one(query, update, upsert=True)
+
+            return jsonify({"message_id": message_id, "response_text": response_text,"calor_mesaage":predicted_response})
         else:
             return jsonify({"error": "No audio file provided"}), 400
 
@@ -75,6 +128,25 @@ def new_Chat():
 def get_chats():
     data=list(collection.find({},{'_id': 0}).sort('createdAt', DESCENDING))
     return  data
+
+
+@app.route('/fetch_chat/<string:chat_id>', methods=['GET'])
+def fetch_chat_messages(chat_id):
+    try:
+        # Find the document with the given chat_id
+        query = {'chat_id': chat_id}
+        chat_document = collection.find_one(query)
+        print(chat_document)
+        if chat_document:
+            # Extract the 'messages' field from the chat document
+            messages = chat_document.get('messages', [])
+            return jsonify(messages)
+        else:
+            return jsonify({"error": "Chat not found"}), 404
+
+    except Exception as e:
+        traceback.print_exc()
+        return jsonify({"error": f"Error fetching chat messages: {str(e)}"}), 500
 
 if __name__ == "__main__":
     port = int(os.environ.get("FLASK_PORT",8000))

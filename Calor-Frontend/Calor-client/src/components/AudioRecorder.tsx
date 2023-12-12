@@ -5,9 +5,9 @@ import { faMicrophone } from "@fortawesome/free-solid-svg-icons";
 import recordIcon from '../assets/icons8-record-ios-16-filled-32.png'
 import sendIcon from '../assets/icons8-paper-plane-64.png'
 import { ActiveChatContext } from "../context/ChatContext";
+import '../components/style.css'
 
-
-const AudioRecorder = () => {
+const AudioRecorder = ({ onSuccess,onRecording }: { onSuccess: () => void,onRecording: () => void }) => {
   const {activeChat} = useContext(ActiveChatContext)
   const [recordingStatus, setRecordingStatus] = useState("inactive");
   const [audioChunks, setAudioChunks] = useState([]);
@@ -22,6 +22,7 @@ const AudioRecorder = () => {
 
   const startRecording = async () => {
     try {
+      onRecording()
       setShowBar(false);
       console.log("The recording chat  : ",activeChat)
       await setAudioChunks([]);
@@ -67,6 +68,7 @@ const AudioRecorder = () => {
       })
         .then(response => {
           console.log("Received response:", response);
+          onSuccess()
         })
         .catch(error => {
           console.error("Error uploading audio:", error);
@@ -74,7 +76,7 @@ const AudioRecorder = () => {
 
       setAudio(URL.createObjectURL(audioBlob));
       setAudioChunks([]);
-      setShowBar(true);
+      // setShowBar(true);
       console.log("The audioFormData, final : ", audioFormData)
     };
   };

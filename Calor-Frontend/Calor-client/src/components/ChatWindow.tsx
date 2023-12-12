@@ -1,76 +1,71 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import './style.css'
 import AudioRecorder from './AudioRecorder';
+import axios from 'axios';
+import sendIcon from '../assets/icons8-paper-plane-64.png'
+
 
 
 const ChatWindow = ({ index, chat }: any) => {
 
   const chatWindowScrollRef = useRef<HTMLDivElement>(null);
+  const [messages, setMessages] = useState<any[]>([])
+  const [showSendIcon, setShowSendIcon] = useState<boolean>(false)
+
+  const fetchChatMessages = async () => {
+    try {
+      console.log("The chat : ", chat)
+      const chatId = chat?.chat_id; // Assuming chat object has chat_id property
+      if (!chatId) {
+        console.error("No chat_id provided.");
+        return;
+      }
+      const response = await axios.get(`${process.env.REACT_APP_FLASK_URL}/fetch_chat/${chatId}`);
+      const chatMessages = response.data;
+      console.log("chat messages ", chatMessages);
+      // Update the state with the fetched messages
+      setMessages(chatMessages);
+
+    } catch (error) {
+      console.error("Error fetching chat messages:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchChatMessages()
+  }, [index, chat])
 
   useEffect(() => {
     chatWindowScrollRef.current?.scrollTo(0, chatWindowScrollRef.current?.scrollHeight);
-  }, [index])
+  }, [messages])
+
 
   return (
     <div className='chatWindowMainContainer' >
       <div className="chatWindowMainHeaderBar">
-        <h2>{chat ? chat?.chatName : ""}</h2>
+        <div className="chatWindowMainHeaderBarContent">
+          <h2>{chat ? chat?.chatName : ""}</h2>
+        </div>
       </div>
       <div className="chatWindowMainElements" ref={chatWindowScrollRef}>
         <div className="chat-history">
           <ul>
-            <li className="clearfix">
-              <div className="message-data align-right">
-                <span className="message-data-time" >10:10 AM, Today</span> &nbsp; &nbsp;
-                <span className="message-data-name" >Olia</span> <i className="fa fa-circle me"></i>
 
-              </div>
-              <div className="message other-message float-right">
-                Hi Vincent, how are you? How is the project coming along?
-              </div>
-            </li>
+            {messages?.map((message: any) => {
+              return (
+                <>
+                  <div className="messageContainer">
+                    <div className="message other-message">
+                      {message?.user_message}
+                    </div>
+                  </div>
+                  <div className="message my-message ">
+                    {message?.calor_message}
+                  </div>
 
-            <li>
-              <div className="message-data">
-                <span className="message-data-name"><i className="fa fa-circle online"></i> Vincent</span>
-                <span className="message-data-time">10:12 AM, Today</span>
-              </div>
-              <div className="message my-message">
-                Are we meeting today? Project has been already finished and I have results to show you.
-              </div>
-            </li>
-
-            <li className="clearfix">
-              <div className="message-data align-right">
-                <span className="message-data-time" >10:14 AM, Today</span> &nbsp; &nbsp;
-                <span className="message-data-name" >Olia</span> <i className="fa fa-circle me"></i>
-
-              </div>
-              <div className="message other-message float-right">
-                Well I am not sure. The rest of the team is not here yet. Maybe in an hour or so? Have you faced any problems at the last phase of the project?
-              </div>
-            </li>
-
-            <li>
-              <div className="message-data">
-                <span className="message-data-name"><i className="fa fa-circle online"></i> Vincent</span>
-                <span className="message-data-time">10:20 AM, Today</span>
-              </div>
-              <div className="message my-message">
-                Actually everything was fine. I'm very excited to show this to our team.
-              </div>
-            </li>
-
-            <li>
-              <div className="message-data">
-                <span className="message-data-name"><i className="fa fa-circle online"></i> Vincent</span>
-                <span className="message-data-time">10:31 AM, Today</span>
-              </div>
-              <i className="fa fa-circle online"></i>
-              <i className="fa fa-circle online" ></i>
-              <i className="fa fa-circle online"></i>
-            </li>
-
+                </>
+              );
+            })}
           </ul>
 
         </div>
@@ -88,7 +83,7 @@ const ChatWindow = ({ index, chat }: any) => {
           >
             <g strokeWidth="0">
             </g>
-            <g stroke-linecap="round" stroke-linejoin="round">
+            <g stroke-linecap="round" strokeLinejoin="round">
             </g>
             <g id="SVGRepo_iconCarrier">
               <defs>
@@ -104,11 +99,15 @@ const ChatWindow = ({ index, chat }: any) => {
           </svg>
         </div>
         <div className="chatInputTextContainer">
-          <input type="text" className='inputText' placeholder='Type a message' />
-        </div>
-        <div className="chatWindowAudioContainer">
-          <AudioRecorder />
-        </div>
+          <input type="text" className='inputText' placeholder='Type a message' onChange={(e) => { e.target.value.trim() !== "" ? setShowSendIcon(true) : setShowSendIcon(false) }} />
+        </div>{
+          showSendIcon ? <div className="chatWindowAudioContainer">
+            <img src={sendIcon} alt="" className="sendIcon" />
+          </div> :
+            <div className="chatWindowAudioContainer">
+              <AudioRecorder onSuccess={fetchChatMessages} onRecording={() => console.log("started recording")} />
+            </div>
+        }
 
       </div>
     </div>

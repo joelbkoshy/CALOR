@@ -26,6 +26,7 @@ const ChatMain = () => {
         setActiveChatIndex((prevIndex: any) => (prevIndex === index ? null : index));
         setActiveChat(chats?.filter((chat: any) => chat?.chat_id === index))
         console.log("The active chat : ", activeChat, activeChatIndex)
+        localStorage.setItem("chat_id",index)
     };
 
     const handleNewChat = (name: string) => {
@@ -123,7 +124,7 @@ const ChatMain = () => {
                         <div className='chatSideBar-mainRightHeaderContainer2' id="style-3">
                             <div className="chatsContainer">
                                 {chats?.map((chat, index) => (
-                                    <div key={index} className={`chatItem ${activeChatIndex === chat.chat_id ? 'active' : ''}`} onClick={() => handleChatItemClick(chat.chat_id)}>
+                                    <div key={index} className={`chatItem ${activeChatIndex === chat.chat_id ? 'active' : ''}`} onClick={() => handleChatItemClick(chat?.chat_id)}>
                                         <div className="chatItemElements">
                                             <svg
                                                 stroke="currentColor"
