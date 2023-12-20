@@ -155,10 +155,27 @@ def new_message(chat_id):
         prompt_parts.append("output : ")
         Calorresponse = model.generate_content(prompt_parts)
         Calorresponse=Calorresponse.text
+        message_id = str(uuid.uuid4())
+        current_time = datetime.datetime.utcnow()
+        
+        message = {
+        'message_id': message_id,
+        'user_message': request.json.get('inputMessage'),
+        'calor_message': Calorresponse,
+        'timestamp': current_time.strftime("%Y-%m-%dT%H:%M:%S.%fZ")
+        }
+
+        query = {'chat_id': chat_id}
+        update = {'$push': {'messages': message}, '$setOnInsert': {'createdAt': datetime.datetime.utcnow()}}
+        collection.update_one(query, update, upsert=True)
+        print({"message_id": message_id, "response_text": request.json.get('inputMessage'),"calor_message":Calorresponse})
+        return jsonify({"message_id": message_id, "response_text": request.json.get('inputMessage'),"calor_message":Calorresponse})
 
     except Exception as e:
         traceback.print_exc()
         return jsonify({"error": f"Error creating chat: {str(e)}"}), 500
+    
+
 @app.route('/new_chat',methods=['POST'])
 def new_Chat():
     try:
@@ -176,7 +193,6 @@ def new_Chat():
     
 @app.route('/getChats',methods=['GET'])
 def get_chats():
-    print("came in")
     data=list(collection.find({},{'_id': 0}).sort('createdAt', DESCENDING))
     return  data
 

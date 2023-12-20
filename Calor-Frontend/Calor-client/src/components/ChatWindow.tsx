@@ -14,6 +14,7 @@ const ChatWindow = ({ index, chat }: any) => {
   const [showSendIcon, setShowSendIcon] = useState<boolean>(false)
   const [showInputBar, setShowInputBar] = useState<boolean>(true)
   const [inputMessage, setInputMessage] = useState<string>("")
+  const [newMessage,setNewMessage] = useState<number>(0)
 
 
   function formatTimestamp(timestamp: string) {
@@ -45,7 +46,8 @@ const ChatWindow = ({ index, chat }: any) => {
       return;
     }
     const response = await axios.post(`${process.env.REACT_APP_FLASK_URL}/new_message/${chatId}`, { inputMessage })
-
+    console.log("response is  : ",response)
+    setNewMessage((messages:any)=>messages+1)
   }
 
   const fetchChatMessages = async () => {
@@ -69,7 +71,7 @@ const ChatWindow = ({ index, chat }: any) => {
 
   useEffect(() => {
     fetchChatMessages()
-  }, [index, chat])
+  }, [index, chat,newMessage])
 
   useEffect(() => {
     chatWindowScrollRef.current?.scrollTo(0, chatWindowScrollRef.current?.scrollHeight);
