@@ -1,1 +1,4 @@
 /local_audio_files
+/models/distilbert_model.pkl
+/models/distilbert_tokenizer.pkl 
+/models/responses.pkl
