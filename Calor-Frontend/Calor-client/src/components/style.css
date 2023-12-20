@@ -178,6 +178,11 @@
   cursor: pointer;
 }
 
+.sendIconBtn{
+  cursor: pointer;
+  all: "unset";
+}
+
 .micRecorder {
   width: 20px;
   height: 100%;
@@ -257,6 +262,16 @@
   flex-grow: 1;
 }
 
+.chatWindowAudioContainer .sendIcon:hover{
+  cursor: pointer;
+}
+
+.chatWindowAudioContainer .sendIcon{
+  all: "unset";
+  cursor: pointer;
+}
+
 .inputText{
   width: 100%;
 }
+

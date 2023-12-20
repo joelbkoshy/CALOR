@@ -3,6 +3,7 @@ import './style.css'
 import AudioRecorder from './AudioRecorder';
 import axios from 'axios';
 import sendIcon from '../assets/icons8-paper-plane-64.png'
+import user from '../assets/user.png'
 
 
 
@@ -11,6 +12,41 @@ const ChatWindow = ({ index, chat }: any) => {
   const chatWindowScrollRef = useRef<HTMLDivElement>(null);
   const [messages, setMessages] = useState<any[]>([])
   const [showSendIcon, setShowSendIcon] = useState<boolean>(false)
+  const [showInputBar, setShowInputBar] = useState<boolean>(true)
+  const [inputMessage, setInputMessage] = useState<string>("")
+
+
+  function formatTimestamp(timestamp: string) {
+    const date = new Date(timestamp);
+
+    const options: Intl.DateTimeFormatOptions = { hour: 'numeric', minute: '2-digit' };
+
+    const formattedTimestamp = date.toLocaleTimeString(undefined, options);
+    return <p>{formattedTimestamp}</p>;
+  }
+
+  const handleInputMessage = (e: any) => {
+    if (e.target.value !== "") {
+      setShowSendIcon(true);
+    } else {
+      setShowSendIcon(false);
+    }
+    setInputMessage(e.target.value);
+  };
+
+
+  const handleSubmitMessage = async () => {
+    console.log("Sending message")
+    setShowSendIcon(false)
+    setInputMessage("")
+    const chatId = chat?.chat_id; // Assuming chat object has chat_id property
+    if (!chatId) {
+      console.error("No chat_id provided.");
+      return;
+    }
+    const response = await axios.post(`${process.env.REACT_APP_FLASK_URL}/new_message/${chatId}`, { inputMessage })
+
+  }
 
   const fetchChatMessages = async () => {
     try {
@@ -56,10 +92,13 @@ const ChatWindow = ({ index, chat }: any) => {
                 <>
                   <div className="messageContainer">
                     <div className="message other-message">
+                      <h4>User</h4>
                       {message?.user_message}
+                      <p style={{ float: 'right' }}>{formatTimestamp(message?.timestamp)}</p>
                     </div>
                   </div>
                   <div className="message my-message ">
+                    <h4>Calor</h4>
                     {message?.calor_message}
                   </div>
 
@@ -98,14 +137,19 @@ const ChatWindow = ({ index, chat }: any) => {
             </g>
           </svg>
         </div>
-        <div className="chatInputTextContainer">
-          <input type="text" className='inputText' placeholder='Type a message' onChange={(e) => { e.target.value.trim() !== "" ? setShowSendIcon(true) : setShowSendIcon(false) }} />
-        </div>{
+        {
+          showInputBar && <div className="chatInputTextContainer">
+            <input type="text" className='inputText' placeholder='Type a message' value={inputMessage} onChange={(e) => handleInputMessage(e)} />
+          </div>
+        }
+        {
           showSendIcon ? <div className="chatWindowAudioContainer">
-            <img src={sendIcon} alt="" className="sendIcon" />
+            <button className='sendIconBtn' style={{all:"unset"}}>
+              <img src={sendIcon} alt="" className="sendIcon" onClick={handleSubmitMessage} />
+            </button>
           </div> :
             <div className="chatWindowAudioContainer">
-              <AudioRecorder onSuccess={fetchChatMessages} onRecording={() => console.log("started recording")} />
+              <AudioRecorder onSuccess={fetchChatMessages} onRecording={() => setShowInputBar(false)} onStopping={() => setShowInputBar(true)} />
             </div>
         }
 

@@ -462,6 +462,7 @@ h3 {
   border-radius: 12px;
   margin-bottom: 30px;
   width: 100%;
+  height: max-content;
   position: relative;
   float: right;
   background-color: #0b6251;

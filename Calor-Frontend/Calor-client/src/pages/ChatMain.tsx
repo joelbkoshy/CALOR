@@ -55,6 +55,7 @@ const ChatMain = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
+                console.log(process.env.REACT_APP_FLASK_URL,"/getChats")
                 const result = axios.get(`${process.env.REACT_APP_FLASK_URL}/getChats`)
                     .then(res => {
                         console.log("The response : ", res.data)

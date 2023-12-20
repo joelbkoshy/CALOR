@@ -7,7 +7,7 @@ import sendIcon from '../assets/icons8-paper-plane-64.png'
 import { ActiveChatContext } from "../context/ChatContext";
 import '../components/style.css'
 
-const AudioRecorder = ({ onSuccess,onRecording }: { onSuccess: () => void,onRecording: () => void }) => {
+const AudioRecorder = ({ onSuccess,onRecording,onStopping }: { onSuccess: () => void,onRecording: () => void,onStopping: () => void  }) => {
   const {activeChat} = useContext(ActiveChatContext)
   const [recordingStatus, setRecordingStatus] = useState("inactive");
   const [audioChunks, setAudioChunks] = useState([]);
@@ -50,6 +50,7 @@ const AudioRecorder = ({ onSuccess,onRecording }: { onSuccess: () => void,onReco
 
 
   const stopRecording = async () => {
+    onStopping()
     setRecordingStatus("inactive");
     setElapsedTime(0);
     mediaRecorder.current.stop();
@@ -60,7 +61,7 @@ const AudioRecorder = ({ onSuccess,onRecording }: { onSuccess: () => void,onReco
       audioFormData.append("audio_file", audioBlob, "recorded_audio.webm");
       audioFormData.append("chat_id",activeChat?.chat_id)
 
-      axios.post("http://localhost:8000/asr", audioFormData, {
+      axios.post(`${process.env.REACT_APP_FLASK_URL}/asr`, audioFormData, {
         headers: {
           "Content-Type": "multipart/form-data",
           "accept": "application/json",

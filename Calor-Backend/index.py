@@ -138,12 +138,27 @@ async def forward_asr_request():
 
 @app.route('/asr', methods=['POST'])
 def asr_route():
-    print("Going to send request")
+    print("Going to send request",request)
     loop = asyncio.new_event_loop()
     asyncio.set_event_loop(loop)
     result = loop.run_until_complete(forward_asr_request())
     return result
 
+@app.route('/new_message/<string:chat_id>',methods=['POST'])
+def new_message(chat_id):
+    try:
+        query ={'chat_id':chat_id}
+        prompt_parts = [  " ",
+  "input: Act like a therapist, being friendly to the user, and asking his concerns seriously like his or hers best friend",
+  "output: "]   
+        prompt_parts.append(f"input : {request.json.get('inputMessage')}")
+        prompt_parts.append("output : ")
+        Calorresponse = model.generate_content(prompt_parts)
+        Calorresponse=Calorresponse.text
+
+    except Exception as e:
+        traceback.print_exc()
+        return jsonify({"error": f"Error creating chat: {str(e)}"}), 500
 @app.route('/new_chat',methods=['POST'])
 def new_Chat():
     try:
@@ -175,7 +190,6 @@ def fetch_chat_messages(chat_id):
         # Find the document with the given chat_id
         query = {'chat_id': chat_id}
         chat_document = collection.find_one(query)
-        print(chat_document)
         if chat_document:
             # Extract the 'messages' field from the chat document
             messages = chat_document.get('messages', [])
