@@ -9,13 +9,6 @@ import asyncio
 from pymongo import MongoClient,DESCENDING
 import uuid
 import google.generativeai as genai
-
-
-from bardapi import Bard
-
-
-import torch
-import bardapi
 import os
 
 # set your __Secure-1PSID value to key
