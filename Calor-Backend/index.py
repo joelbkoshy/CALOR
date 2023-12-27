@@ -11,8 +11,7 @@ import uuid
 import google.generativeai as genai
 import os
 
-# set your __Secure-1PSID value to key
-# token = 'dwgz9hbe6wWwR0o9qy_5DJbo2znNxcMxUaN_kYsAVHURp86e1FH94PBF_PiQOELKCV2KKQ.'
+
 
 genai.configure(api_key=os.environ.get("GENAI_API_KEY"))
 
@@ -84,26 +83,6 @@ async def forward_asr_request():
                 prompt_parts.append("output : ")
                 Calorresponse = model.generate_content(prompt_parts)
                 Calorresponse=Calorresponse.text
-        #         print("Current Working Directory:", os.getcwd())
-                
-        #         with open('D:\\MCA\\5th_TRIMESTER\\SPECIALIZATION_PROJECT\\CALOR\\Calor-Backend\\models\\distilbert_model.pkl', 'rb') as model_file, \
-        #         open('D:\\MCA\\5th_TRIMESTER\\SPECIALIZATION_PROJECT\\CALOR\\Calor-Backend\\models\\distilbert_tokenizer.pkl', 'rb') as tokenizer_file, \
-        #         open('D:\\MCA\\5th_TRIMESTER\\SPECIALIZATION_PROJECT\\CALOR\\Calor-Backend\\models\\responses.pkl', 'rb') as responses_file:
-        #          loaded_model = pickle.load(model_file)
-        #          loaded_tokenizer = pickle.load(tokenizer_file)
-        #          loaded_responses = pickle.load(responses_file)
-        #    # Test the loaded model and tokenizer with a longer sentence
-        #          input_ids = loaded_tokenizer.encode(response_text, return_tensors='pt', max_length=512, truncation=True)
-
-        #         with torch.no_grad():
-        #          output = loaded_model(input_ids)
-
-        #         probs = torch.softmax(output.logits, dim=1)
-        #         predicted_class = torch.argmax(probs).item()
-
-        #     # Get the predicted response using the predicted class as an index
-        #         predicted_response = loaded_responses[predicted_class]
-
             # Save the response text as a message in MongoDB
                 message_id = str(uuid.uuid4())
                 current_time = datetime.datetime.utcnow()

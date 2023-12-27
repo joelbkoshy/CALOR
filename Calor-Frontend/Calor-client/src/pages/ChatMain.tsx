@@ -21,11 +21,12 @@ const ChatMain = () => {
     const [activeChat, setActiveChat] = useState<any>(null)
     const [newChat, setNewChat] = useState<string>("");
     const [chats, setChats] = useState<any[]>([])
+    const [editChatName,setEditChatName] = useState<boolean>(false);
+
 
     const handleChatItemClick = (index: any) => {
         setActiveChatIndex((prevIndex: any) => (prevIndex === index ? null : index));
         setActiveChat(chats?.filter((chat: any) => chat?.chat_id === index))
-        console.log("The active chat : ", activeChat, activeChatIndex)
         localStorage.setItem("chat_id",index)
     };
 
@@ -47,6 +48,10 @@ const ChatMain = () => {
         }
     }
 
+    const handleEditChatName = async ()=> {
+
+    }
+
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
@@ -55,13 +60,10 @@ const ChatMain = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                console.log(process.env.REACT_APP_FLASK_URL,"/getChats")
                 const result = axios.get(`${process.env.REACT_APP_FLASK_URL}/getChats`)
                     .then(res => {
-                        console.log("The response : ", res.data)
                         setChats(res.data)
                     })
-                console.log("The chats : ", result)
             } catch (error) {
                 console.log("Something went wrong ", error)
             }
@@ -125,8 +127,8 @@ const ChatMain = () => {
                         <div className='chatSideBar-mainRightHeaderContainer2' id="style-3">
                             <div className="chatsContainer">
                                 {chats?.map((chat, index) => (
-                                    <div key={index} className={`chatItem ${activeChatIndex === chat.chat_id ? 'active' : ''}`} onClick={() => handleChatItemClick(chat?.chat_id)}>
-                                        <div className="chatItemElements">
+                                    <div key={index} className={`chatItem ${activeChatIndex === chat.chat_id ? 'active' : ''}`} >
+                                        <div className="chatItemElements" onClick={() => handleChatItemClick(chat?.chat_id)}>
                                             <svg
                                                 stroke="currentColor"
                                                 fill="none"
@@ -155,6 +157,7 @@ const ChatMain = () => {
                                                 height="1em"
                                                 width="1em"
                                                 xmlns="http://www.w3.org/2000/svg"
+                                                onClick={()=>console.log("test")}
                                             >
                                                 <path d="M12 20h9"></path>
                                                 <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
