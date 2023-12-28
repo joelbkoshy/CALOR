@@ -26,6 +26,6 @@ Calor is an innovative AI-powered Full Stack Therapist Application designed to p
 
 You can watch a video demonstration of Calor by clicking the link below:
 
-<iframe width="560" height="315" src="https://drive.google.com/file/d/1P_oKLEGGceYqPkBpCZCP_ElRs6SnPTsd/view?usp=sharing" frameborder="0" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/8jPL_5BoKuA?si=feYm0faZ3M_tuVM2" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 
