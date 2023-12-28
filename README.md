@@ -24,6 +24,26 @@ Calor is an innovative AI-powered Full Stack Therapist Application designed to p
 
 - [Node.js](https://nodejs.org/) installed
 - [MongoDB](https://www.mongodb.com/) installed locally or via a cloud service
+- [MongoDB Compass](https://www.mongodb.com/products/tools/compass) installed locally
+- [Docker Desktop](https://www.docker.com/products/docker-desktop/) installed locally
 
+### Installation
+
+- **Clone the repository**
+  ```bash
+    git clone https://github.com/joelbkoshy/CALOR.git
+  ```
+- Frontend (React.js(TSX))
+     ```bash
+    cd .\Calor-Frontend\Calor-client\
+    npm start
+  ```
+- Backend (Flask)
+   ```bash
+  cd .\Calor-Backend
+  pip install -r requirements.txt
+  ```
+  
+  
 
 
