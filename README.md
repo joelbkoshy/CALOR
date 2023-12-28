@@ -22,10 +22,7 @@ Calor is an innovative AI-powered Full Stack Therapist Application designed to p
 - [Node.js](https://nodejs.org/) installed
 - [MongoDB](https://www.mongodb.com/) installed locally or via a cloud service
 
-## Video Demo
+## Demo
 
-You can watch a video demonstration of Calor by clicking the link below:
-
-<iframe width="560" height="315" src="https://www.youtube.com/embed/8jPL_5BoKuA?si=feYm0faZ3M_tuVM2" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-
+![Calor Demo GIF](https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExcHZwZmhvbGNkN212Mmt6ZWhvdHJ4cWdvcnBua2kwbXR2MmU0aDVzeSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/f2uiBSR2REZTYa8jiy/giphy.gif)
 
