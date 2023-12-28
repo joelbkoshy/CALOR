@@ -5,6 +5,7 @@ import Login from './pages/Login';
 import Registration from './pages/Registration';
 import ChatMain from './pages/ChatMain';
 import { createContext} from 'react';
+import '../src/App.css'
 
 
 // const [chatId,setChatId] = useState<any>(null)

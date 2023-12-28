@@ -1,6 +1,27 @@
-.App{
-    margin: 0;
-    padding: 0;
-    display: flex;
-    height: 100vh;
-  }
+/* App.css */
+
+body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden; /* Prevent scrolling on the body */
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  height: 100vh; /* Full viewport height */
+  width: 100vw; /* Full viewport width */
+  overflow: hidden; /* Prevent scrolling on the body */
+  min-height: 100vh; /* Minimum full viewport height */
+  min-width: 100vw;
+}
+
+/* Add this to ensure the content inside App container takes available space */
+.App > div {
+  flex: 1;
+  height: 100%; /* Full height of the parent container */
+  width: 100%; /* Full width of the parent container */
+  /* overflow-y: auto; Enable vertical scrolling for content overflow */
+  min-height: 100vh; /* Minimum full viewport height */
+  min-width: 100vw;
+}

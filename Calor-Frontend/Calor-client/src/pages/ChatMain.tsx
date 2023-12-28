@@ -21,7 +21,7 @@ const ChatMain = () => {
     const [activeChat, setActiveChat] = useState<any>(null)
     const [newChat, setNewChat] = useState<string>("");
     const [chats, setChats] = useState<any[]>([])
-    const [editChatName,setEditChatName] = useState<boolean>(false);
+    const [editElements,setEditElements] = useState<boolean>(false);
 
 
     const handleChatItemClick = (index: any) => {
@@ -127,8 +127,8 @@ const ChatMain = () => {
                         <div className='chatSideBar-mainRightHeaderContainer2' id="style-3">
                             <div className="chatsContainer">
                                 {chats?.map((chat, index) => (
-                                    <div key={index} className={`chatItem ${activeChatIndex === chat.chat_id ? 'active' : ''}`} >
-                                        <div className="chatItemElements" onClick={() => handleChatItemClick(chat?.chat_id)}>
+                                    <div key={index} className={`chatItem ${activeChatIndex === chat.chat_id ? 'active' : ''}`} onClick={() => handleChatItemClick(chat?.chat_id)} >
+                                        <div className="chatItemElements" >
                                             <svg
                                                 stroke="currentColor"
                                                 fill="none"

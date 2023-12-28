@@ -26,6 +26,16 @@ const ChatWindow = ({ index, chat }: any) => {
     return <p>{formattedTimestamp}</p>;
   }
 
+  const handleEnterKey = (e: React.KeyboardEvent<HTMLInputElement>)=>{
+    if (e.key === 'Enter' && inputMessage && !e.shiftKey) {
+      e.preventDefault();
+      handleSubmitMessage();
+    }
+    else if (e.key === 'Enter' && inputMessage && e.shiftKey) {
+      setInputMessage((prevMessage) => prevMessage + '\n');
+    }
+  }
+
   const handleInputMessage = (e: any) => {
     if (e.target.value !== "") {
       setShowSendIcon(true);
@@ -141,7 +151,13 @@ const ChatWindow = ({ index, chat }: any) => {
         </div>
         {
           showInputBar && <div className="chatInputTextContainer">
-            <input type="text" className='inputText' placeholder='Type a message' value={inputMessage} onChange={(e) => handleInputMessage(e)} />
+            <input type="text" 
+            className='inputText' 
+            placeholder='Type a message' 
+            value={inputMessage} 
+            onChange={(e) => handleInputMessage(e)} 
+            onKeyDown={(e)=>handleEnterKey(e)}
+            />
           </div>
         }
         {
