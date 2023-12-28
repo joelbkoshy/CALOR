@@ -1,9 +1,8 @@
 
 # Calor: AI-Based Full Stack Therapist Application
 
-<div align="center">
-  <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExcHZwZmhvbGNkN212Mmt6ZWhvdHJ4cWdvcnBua2kwbXR2MmU0aDVzeSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/f2uiBSR2REZTYa8jiy/giphy.gif" alt="Calor Demo GIF">
-</div>
+
+![Calor Demo GIF](https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExcHZwZmhvbGNkN212Mmt6ZWhvdHJ4cWdvcnBua2kwbXR2MmU0aDVzeSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/f2uiBSR2REZTYa8jiy/giphy.gif)
 
 Calor is an innovative AI-powered Full Stack Therapist Application designed to provide mental health support and therapy services. With cutting-edge technology and a user-friendly interface, Calor aims to make mental health resources easily accessible to users worldwide.
 
