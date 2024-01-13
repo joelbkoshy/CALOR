@@ -3,7 +3,6 @@ import './style.css'
 import AudioRecorder from './AudioRecorder';
 import axios from 'axios';
 import sendIcon from '../assets/icons8-paper-plane-64.png'
-import user from '../assets/user.png'
 
 
 

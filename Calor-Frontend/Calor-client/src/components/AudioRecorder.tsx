@@ -65,7 +65,7 @@ const AudioRecorder = ({ onSuccess,onRecording,onStopping }: { onSuccess: () => 
         headers: {
           "Content-Type": "multipart/form-data",
           "accept": "application/json",
-        },
+        },  
       })
         .then(response => {
           console.log("Received response:", response);
@@ -77,7 +77,6 @@ const AudioRecorder = ({ onSuccess,onRecording,onStopping }: { onSuccess: () => 
 
       setAudio(URL.createObjectURL(audioBlob));
       setAudioChunks([]);
-      // setShowBar(true);
       console.log("The audioFormData, final : ", audioFormData)
     };
   };
